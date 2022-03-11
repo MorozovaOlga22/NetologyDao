@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="morozova" id="1">
+        <createTable tableName="CUSTOMERS">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+            <column name="surname" type="VARCHAR"/>
+            <column name="age" type="INT"/>
+            <column name="phone_number" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="morozova" id="2">
+        <createTable tableName="ORDERS">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="date" type="TIMESTAMP"/>
+            <column name="customer_id" type="INT"/>
+            <column name="product_name" type="VARCHAR"/>
+            <column name="amount" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="ORDERS"
+                                 constraintName="orders_customer_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="CUSTOMERS"/>
+    </changeSet>
+</databaseChangeLog>
